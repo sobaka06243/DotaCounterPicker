@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "DotaCounterPicker.Services/1.0.0": {
+        "dependencies": {
+          "DotaCounterPicker.Contracts": "1.0.0"
+        },
+        "runtime": {
+          "DotaCounterPicker.Services.dll": {}
+        }
+      },
+      "DotaCounterPicker.Contracts/1.0.0": {
+        "runtime": {
+          "DotaCounterPicker.Contracts.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "DotaCounterPicker.Services/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DotaCounterPicker.Contracts/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
