@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using Newtonsoft.Json;
+using System.Net.Http;
+using System.Text;
 
 namespace DotaCounterPicker.Client;
 
@@ -17,5 +19,5 @@ public partial class DotaClient
     public Task ProcessResponseAsync(HttpClient? client, HttpResponseMessage? message, CancellationToken cancellationToken)
     {
         return Task.CompletedTask;
-    }
+    } 
 }

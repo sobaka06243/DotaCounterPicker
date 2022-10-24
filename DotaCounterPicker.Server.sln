@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotaCounterPicker.Services"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotaCounterPicker.Client", "DotaCounterPicker.Client\DotaCounterPicker.Client.csproj", "{A729D310-00B3-420B-B1D1-B630E04C50B3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotaCounterPicker.Blazor", "DotaCounterPicker.Blazor\DotaCounterPicker.Blazor.csproj", "{BF18FB63-F729-4610-9496-EF98B89034C6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{A729D310-00B3-420B-B1D1-B630E04C50B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A729D310-00B3-420B-B1D1-B630E04C50B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A729D310-00B3-420B-B1D1-B630E04C50B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF18FB63-F729-4610-9496-EF98B89034C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF18FB63-F729-4610-9496-EF98B89034C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF18FB63-F729-4610-9496-EF98B89034C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF18FB63-F729-4610-9496-EF98B89034C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,44 @@
+﻿@page "/fetchdata"
+@using DotaCounterPicker.Client
+@using DotaCounterPicker.Contracts.Entities
+@inject DotaClient Client
+
+<PageTitle>Weather forecast</PageTitle>
+
+<h1>Weather forecast</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+@if (heroes == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Disadvantage</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var forecast in heroes)
+            {
+                <tr>
+                    <td>@forecast.Name</td>
+                    <td>@forecast.Disadvantage</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private ICollection<DotaHero>? heroes;
+
+    protected override async Task OnInitializedAsync()
+    {
+            heroes = await Client.ParseHeroAsync("slark");
+    }
+}

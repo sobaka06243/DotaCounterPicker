@@ -30,3 +30,5 @@ C:\Users\Ivan\Documents\Project\DotaCounterPicker.Server\DotaCounterPicker.Serve
 C:\Users\Ivan\Documents\Project\DotaCounterPicker.Server\DotaCounterPicker.Server\obj\Debug\net6.0\DotaCounterPicker.Server.pdb
 C:\Users\Ivan\Documents\Project\DotaCounterPicker.Server\DotaCounterPicker.Server\obj\Debug\net6.0\DotaCounterPicker.Server.genruntimeconfig.cache
 C:\Users\Ivan\Documents\Project\DotaCounterPicker.Server\DotaCounterPicker.Server\obj\Debug\net6.0\ref\DotaCounterPicker.Server.dll
+C:\Users\Ivan\Documents\Project\DotaCounterPicker.Server\DotaCounterPicker.Server\bin\Debug\net6.0\Swashbuckle.AspNetCore.Annotations.dll
+C:\Users\Ivan\Documents\Project\DotaCounterPicker.Server\DotaCounterPicker.Server\bin\Debug\net6.0\DotaCounterPicker.Server.staticwebassets.runtime.json
