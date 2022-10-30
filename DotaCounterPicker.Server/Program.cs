@@ -1,39 +1,35 @@
+using DotaCounterPicker.Core;
+using DotaCounterPicker.Server.Data;
 using DotaCounterPicker.Server.Services;
 using DotaCounterPicker.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IHeroParser, HeroParser>();
-//builder.Services.AddCors();
+builder.Services.AddRazorPages();
+builder.Services.AddServerSideBlazor();
+builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddScoped((services) => new HttpClient());
+builder.Services.AddScoped<IHeroLoader, HeroLoader>();
+builder.Services.AddScoped<HeroParser>();
 
 var app = builder.Build();
 
-app.UseCors(cors => cors
-.AllowAnyMethod()
-.AllowAnyHeader()
-.SetIsOriginAllowed(origin => true)
-.AllowCredentials()
-);
-
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (!app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseExceptionHandler("/Error");
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
 }
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+app.UseStaticFiles();
 
-app.MapControllers();
+app.UseRouting();
 
-
+app.MapBlazorHub();
+app.MapFallbackToPage("/_Host");
 
 app.Run();
