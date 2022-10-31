@@ -1,3 +1,4 @@
+using Blazored.Modal;
 using DotaCounterPicker.Core;
 using DotaCounterPicker.Server.Data;
 using DotaCounterPicker.Server.Services;
@@ -12,6 +13,7 @@ builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddScoped((services) => new HttpClient());
 builder.Services.AddScoped<IHeroLoader, HeroLoader>();
 builder.Services.AddScoped<HeroParser>();
+builder.Services.AddBlazoredModal();
 
 var app = builder.Build();
 

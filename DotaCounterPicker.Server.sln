@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotaCounterPicker.Services"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotaCounterPicker.Server", "DotaCounterPicker.Server\DotaCounterPicker.Server.csproj", "{031C863F-5B2B-4355-9716-2EFD7EBEFBCF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotaCounterPicker.Core", "DotaCounterPicker.Core\DotaCounterPicker.Core.csproj", "{E0149053-3190-48BE-925D-1368FDC497C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotaCounterPicker.Core", "DotaCounterPicker.Core\DotaCounterPicker.Core.csproj", "{E0149053-3190-48BE-925D-1368FDC497C7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
