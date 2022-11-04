@@ -11,7 +11,7 @@
 @inject IHeroLoader HeroLoader
 @inject HeroParser HeroParser
 
-<p>Matchups</p>
+<h1>Matchups</h1>
 
 @if (_isBusy)
 {
@@ -78,6 +78,22 @@ else
                 heroes.Add(new DotaHero(group.Key, disadvantage));
             } 
         }
+        heroes.Sort(new DotaHeroComparer());
         return heroes;
+    }
+
+    public class DotaHeroComparer : IComparer<DotaHero>
+    {
+        public int Compare(DotaHero a, DotaHero b)
+        {
+            if(a.Disadvantage < b.Disadvantage){
+                return 1;
+            }
+            if (a.Disadvantage > b.Disadvantage)
+            {
+                return -1;
+            }
+            return 0;
+        }
     }
 }

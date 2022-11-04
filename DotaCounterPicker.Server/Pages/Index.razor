@@ -26,11 +26,16 @@
 
     }
 </div>
-<div class="mt-5">
-    <FetchData HeroNames="@_heroes.Select(h => GetHeroName(h)).ToList()" />
-</div>
+@if (AnyHeroPicked)
+{
+    <div class="mt-5">
+        <FetchData HeroNames="@_heroes.Select(h => GetHeroName(h)).ToList()" />
+    </div>
+}
 
 @code{
+    public bool AnyHeroPicked => _heroes.Any(h => h != GlobalConsts.EmptyHero);
+
     string[] _heroes = new string[5]
     {
         GlobalConsts.EmptyHero,
