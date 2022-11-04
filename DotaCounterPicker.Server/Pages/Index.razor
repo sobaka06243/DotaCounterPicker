@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using Blazored.Modal
 @using Blazored.Modal.Services
 @using DotaCounterPicker.Server.Utils
 @inject IJSRuntime JS
@@ -45,9 +46,16 @@
         GlobalConsts.EmptyHero
     };
 
+
     private async Task PickHero(int heroIndex)
     {
-        var modalReference = ModalService.Show<HeroPicker>("Pick enemy hero", new Blazored.Modal.ModalOptions()
+        var parameters = new ModalParameters();
+        parameters.Add(nameof(HeroPicker.RestrictHeroes), _heroes);
+
+        var modalReference = ModalService.Show<HeroPicker>(
+            "Pick enemy hero", 
+        parameters,
+        new Blazored.Modal.ModalOptions()
         {
             Size=Blazored.Modal.ModalSize.Automatic
 

@@ -20,6 +20,9 @@
 
     string path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\heroes"}";
 
+    [Parameter]
+    public IEnumerable<string> RestrictHeroes { get; set; } = new List<string>();
+
     IList<string> _heroes = new List<string>();
 
     protected override void OnInitialized()
@@ -29,7 +32,7 @@
 
     public void Load()
     {
-        _heroes = Directory.GetFiles(path).Select(f => Path.GetFileName(f)).ToList();
+        _heroes = Directory.GetFiles(path).Select(f => Path.GetFileName(f)).Where(n => !RestrictHeroes.Contains(n)).ToList();
 
     }
 
