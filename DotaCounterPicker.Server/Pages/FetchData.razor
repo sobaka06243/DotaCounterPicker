@@ -70,13 +70,16 @@ else
         var groups = _heroes.SelectMany(h => h.Value).GroupBy(h => h.Name);
         foreach (var group in groups)
         {
-            var dotaHeroes = group.Select(g => g);
-            double disadvantage = 0;
-            foreach(var hero in dotaHeroes)
+            if (group.Count() == _heroes.Count)
             {
-                disadvantage += hero.Disadvantage;
-            }
-            heroes.Add(new DotaHero(group.Key, disadvantage));
+                var dotaHeroes = group.Select(g => g);
+                double disadvantage = 0;
+                foreach (var hero in dotaHeroes)
+                {
+                    disadvantage += hero.Disadvantage;
+                }
+                heroes.Add(new DotaHero(group.Key, disadvantage));
+            } 
         }
         return heroes;
     }
