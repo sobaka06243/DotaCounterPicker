@@ -39,7 +39,11 @@
 
     private async Task Show()
     {
-        var modalReference = modal.Show<HeroPicker>("Modal Popup Example", new Blazored.Modal.ModalOptions(){Size=Blazored.Modal.ModalSize.Automatic});
+        var modalReference = modal.Show<HeroPicker>("Pick enemy hero", new Blazored.Modal.ModalOptions()
+        {
+            Size=Blazored.Modal.ModalSize.Automatic
+            
+        });
         var res = await modalReference.Result;
     }
 

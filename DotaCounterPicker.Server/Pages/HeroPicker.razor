@@ -1,5 +1,4 @@
-﻿<h3>HeroPicker</h3>
-    <div class="container text-center">
+﻿    <div class="container text-center">
     <div class="row justify-content-start">
 @for(int i =0; i< _heroes.Count; i++)
 {
@@ -13,13 +12,15 @@
         </div>
     </div>
 
-
-<button @onclick="Load">Load</button>
-
 @code {
     string path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\heroes"}";
 
     IList<string> _heroes = new List<string>();
+
+    protected override void OnInitialized()
+    {
+        Load();
+    }
 
     public void Load()
     {
