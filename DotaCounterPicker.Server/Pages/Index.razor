@@ -26,6 +26,9 @@
 
     }
 </div>
+<div>
+    <FetchData HeroNames="@_heroes.Select(h => GetHeroName(h)).ToList()" />
+</div>
 
 @code{
     string[] _heroes = new string[5]
@@ -47,8 +50,13 @@
         var res = await modalReference.Result;
         if(res.Data is string heroName)
         {
-            _heroes[heroIndex] = heroName += ".png";
+            _heroes[heroIndex] = heroName += GlobalConsts.HeroImageExtension;
         }
+    }
+
+    private string GetHeroName(string path)
+    {
+        return path.Replace(GlobalConsts.HeroImageExtension, "");
     }
 
 }

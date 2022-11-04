@@ -6,6 +6,7 @@
 @using Blazored.Modal.Services
 @using DotaCounterPicker.Core
 @using DotaCounterPicker.Server.Data
+@using DotaCounterPicker.Server.Utils
 @using DotaCounterPicker.Services
 @inject IHeroLoader HeroLoader
 @inject HeroParser HeroParser
@@ -14,9 +15,8 @@
 
 <p>This component demonstrates fetching data from a service.</p>
 
-<button @onclick="Close">Close</button>
 
-@if (heroes == null)
+@if (_isBusy)
 {
     <p><em>Loading...</em></p>
 }
@@ -30,32 +30,54 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var forecast in heroes)
-            {
-                <tr>
-                    <td>@forecast.Name</td>
-                    <td>@forecast.Disadvantage</td>
-                </tr>
-            }
+                @foreach(var hero in Calculate()){
+                    <tr>
+                        <td>@hero.Name</td>
+                        <td>@hero.Disadvantage</td>
+                    </tr>
+                }
+               
         </tbody>
     </table>
 }
 
 @code {
+    private bool _isBusy = false;
 
-    [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; } = default!;
 
-    private IEnumerable<DotaHero>? heroes;
+    [Parameter]
+    public IList<string> HeroNames { get; set; } = new List<string>();
 
-    protected override async Task OnInitializedAsync()
+    private IDictionary<string, IEnumerable<DotaHero>> _heroes = new Dictionary<string, IEnumerable<DotaHero>>();
+
+    protected override async Task OnParametersSetAsync()
     {
-        var html = await HeroLoader.LoadHero("slark");
-        heroes = HeroParser.ParseHero(html);
+        _isBusy = true;
+        foreach(var name in HeroNames)
+        {
+            if (name != GlobalConsts.EmptyHero)
+            {
+                var html = await HeroLoader.LoadHero(name);
+                _heroes[name] = HeroParser.ParseHero(html);
+            }
+        }
+        _isBusy = false;
     }
 
-    private async Task Close()
+    private IEnumerable<DotaHero> Calculate()
     {
-        await BlazoredModal.CloseAsync(ModalResult.Ok(heroes));
-
+        List<DotaHero> heroes = new List<DotaHero>();
+        var groups = _heroes.SelectMany(h => h.Value).GroupBy(h => h.Name);
+        foreach (var group in groups)
+        {
+            var dotaHeroes = group.Select(g => g);
+            double disadvantage = 0;
+            foreach(var hero in dotaHeroes)
+            {
+                disadvantage += hero.Disadvantage;
+            }
+            heroes.Add(new DotaHero(group.Key, disadvantage));
+        }
+        return heroes;
     }
 }
