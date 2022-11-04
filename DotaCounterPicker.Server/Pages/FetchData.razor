@@ -5,7 +5,6 @@
 @using Blazored.Modal
 @using Blazored.Modal.Services
 @using DotaCounterPicker.Core
-@using DotaCounterPicker.Server.Data
 @using DotaCounterPicker.Server.Utils
 @using DotaCounterPicker.Services
 @inject IHeroLoader HeroLoader
@@ -37,7 +36,7 @@ else
         </tbody>
     </table>
 }
-
+    
 @code {
     private bool _isBusy = false;
 
