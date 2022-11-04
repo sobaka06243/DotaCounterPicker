@@ -1,11 +1,13 @@
-﻿    <div class="container text-center">
+﻿@using Blazored.Modal
+@using Blazored.Modal.Services
+    <div class="container text-center">
     <div class="row justify-content-start">
-@for(int i =0; i< _heroes.Count; i++)
+@for(int i =0 ; i< _heroes.Count; i++)
 {
-
-            <div class="col-auto hero-image">
+            var buttonNumber = i;
+            <button @onclick="async() => await Choose(GetHeroName(_heroes[buttonNumber]))" class="col-auto hero-image">
                 <img class="" src="heroes/@_heroes[i]" />
-            </div>
+            </button>
 
 
 }
@@ -13,6 +15,8 @@
     </div>
 
 @code {
+    [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; } = default!;
+
     string path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\heroes"}";
 
     IList<string> _heroes = new List<string>();
@@ -26,5 +30,15 @@
     {
         _heroes = Directory.GetFiles(path).Select(f => Path.GetFileName(f)).ToList();
 
-	}
+    }
+
+    private string GetHeroName(string path)
+    {
+        return path.Replace(".png", "");
+    }
+
+    public async Task Choose(string heroName)
+    {
+        await BlazoredModal.CloseAsync(ModalResult.Ok(heroName));
+    }
 }

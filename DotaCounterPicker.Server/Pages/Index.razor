@@ -2,7 +2,7 @@
 @using Blazored.Modal.Services
 @using DotaCounterPicker.Server.Utils
 @inject IJSRuntime JS
-@inject IModalService modal
+@inject IModalService ModalService
 <PageTitle>Index</PageTitle>
 
 
@@ -11,8 +11,8 @@
 <div class="row justify-content-start">
     @for (int i = 0; i < _heroes.Length; i++)
     {
-
-        <button class="col-auto hero-image border" @onclick="Show">
+        var heroIndex = i;
+        <button class="col-auto hero-image border" @onclick="async ()=>await PickHero(heroIndex)">
             @if (@_heroes[i] == GlobalConsts.EmptyHero)
             {
                 <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16"> <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" /> </svg>
@@ -37,14 +37,18 @@
         GlobalConsts.EmptyHero
     };
 
-    private async Task Show()
+    private async Task PickHero(int heroIndex)
     {
-        var modalReference = modal.Show<HeroPicker>("Pick enemy hero", new Blazored.Modal.ModalOptions()
+        var modalReference = ModalService.Show<HeroPicker>("Pick enemy hero", new Blazored.Modal.ModalOptions()
         {
             Size=Blazored.Modal.ModalSize.Automatic
-            
+
         });
         var res = await modalReference.Result;
+        if(res.Data is string heroName)
+        {
+            _heroes[heroIndex] = heroName += ".png";
+        }
     }
 
 }
