@@ -49,13 +49,21 @@ else
     protected override async Task OnParametersSetAsync()
     {
         _isBusy = true;
+        List<string> heroToRemove = new List<string>();
+        foreach (var hero in _heroes)
+        {
+            if(!HeroNames.Any(h => h == hero.Key))
+            {
+                heroToRemove.Add(hero.Key);
+            }
+        }
+        foreach(var hero in heroToRemove)
+        {
+            _heroes.Remove(hero);
+        }
         foreach(var name in HeroNames)
         {
             if(name == GlobalConsts.EmptyHero || _cachedHeroNames.Any(n=> n == name))
-            {
-                continue;
-            }
-            if(_heroes.ContainsKey(name))
             {
                 continue;
             }
