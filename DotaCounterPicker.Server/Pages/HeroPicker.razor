@@ -32,7 +32,7 @@
 
     public void Load()
     {
-        _heroes = Directory.GetFiles(path).Select(f => Path.GetFileName(f)).Where(n => !RestrictHeroes.Contains(n)).ToList();
+        _heroes = Directory.GetFiles(path).Select(f => Path.GetFileName(f)).Where(n => !RestrictHeroes.Contains(GetHeroName(n))).ToList();
 
     }
 

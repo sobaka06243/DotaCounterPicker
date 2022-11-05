@@ -26,7 +26,8 @@ else
             </tr>
         </thead>
         <tbody>
-                @foreach(var hero in Calculate()){
+            @foreach (var hero in _calculatedHeroes)
+            {
                     <tr>
                         <td>@hero.Name</td>
                         <td>@hero.Disadvantage</td>
@@ -40,6 +41,7 @@ else
 @code {
     private bool _isBusy = false;
     private IEnumerable<string> _cachedHeroNames = new List<string>();
+    private IEnumerable<DotaHero> _calculatedHeroes = new List<DotaHero>();
 
     [Parameter]
     public IEnumerable<string> HeroNames { get; set; } = new List<string>();
@@ -49,6 +51,7 @@ else
     protected override async Task OnParametersSetAsync()
     {
         _isBusy = true;
+        bool canCalculate = false;
         List<string> heroToRemove = new List<string>();
         foreach (var hero in _heroes)
         {
@@ -69,12 +72,18 @@ else
             }
             var html = await HeroLoader.LoadHero(name);
             _heroes[name] = HeroParser.ParseHero(html);
+            canCalculate = true;
+
         }
         _isBusy = false;
         _cachedHeroNames = new List<string>(HeroNames);
+        if (canCalculate)
+        {
+            Calculate();
+        }
     }
 
-    private IEnumerable<DotaHero> Calculate()
+    private void Calculate()
     {
         List<DotaHero> heroes = new List<DotaHero>();
         var groups = _heroes.SelectMany(h => h.Value).GroupBy(h => h.Name);
@@ -92,7 +101,7 @@ else
             } 
         }
         heroes.Sort(new DotaHeroComparer());
-        return heroes;
+        _calculatedHeroes = heroes;
     }
 
     public class DotaHeroComparer : IComparer<DotaHero>

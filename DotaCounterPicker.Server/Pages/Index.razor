@@ -20,7 +20,7 @@
             }
             else
             {
-            <img class="" src="heroes/@_heroes[i]" />
+                <img class="" src="heroes/@GetImagePath(_heroes[i] )" />
             }
         </button>
 
@@ -30,7 +30,7 @@
 @if (AnyHeroPicked)
 {
     <div class="mt-5">
-        <FetchData HeroNames="@_heroes.Select(h => GetHeroName(h)).ToList()" />
+        <FetchData HeroNames="@_heroes" />
     </div>
 }
 
@@ -63,13 +63,12 @@
         var res = await modalReference.Result;
         if(res.Data is string heroName)
         {
-            _heroes[heroIndex] = heroName += GlobalConsts.HeroImageExtension;
+            _heroes[heroIndex] = heroName;
         }
     }
 
-    private string GetHeroName(string path)
+    private string GetImagePath(string heroName)
     {
-        return path.Replace(GlobalConsts.HeroImageExtension, "");
+        return heroName += GlobalConsts.HeroImageExtension;
     }
-
 }
