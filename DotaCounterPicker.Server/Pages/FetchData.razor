@@ -39,10 +39,10 @@ else
     
 @code {
     private bool _isBusy = false;
-
+    private IEnumerable<string> _cachedHeroNames = new List<string>();
 
     [Parameter]
-    public IList<string> HeroNames { get; set; } = new List<string>();
+    public IEnumerable<string> HeroNames { get; set; } = new List<string>();
 
     private IDictionary<string, IEnumerable<DotaHero>> _heroes = new Dictionary<string, IEnumerable<DotaHero>>();
 
@@ -51,13 +51,19 @@ else
         _isBusy = true;
         foreach(var name in HeroNames)
         {
-            if (name != GlobalConsts.EmptyHero)
+            if(name == GlobalConsts.EmptyHero || _cachedHeroNames.Any(n=> n == name))
             {
-                var html = await HeroLoader.LoadHero(name);
-                _heroes[name] = HeroParser.ParseHero(html);
+                continue;
             }
+            if(_heroes.ContainsKey(name))
+            {
+                continue;
+            }
+            var html = await HeroLoader.LoadHero(name);
+            _heroes[name] = HeroParser.ParseHero(html);
         }
         _isBusy = false;
+        _cachedHeroNames = new List<string>(HeroNames);
     }
 
     private IEnumerable<DotaHero> Calculate()
