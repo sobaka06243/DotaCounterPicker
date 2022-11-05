@@ -18,7 +18,6 @@
 @code {
     [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; } = default!;
 
-    string path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\heroes"}";
 
     [Parameter]
     public IEnumerable<string> RestrictHeroes { get; set; } = new List<string>();
@@ -32,7 +31,7 @@
 
     public void Load()
     {
-        _heroes = Directory.GetFiles(path).Select(f => Path.GetFileName(f)).Where(n => !RestrictHeroes.Contains(GetHeroName(n))).ToList();
+        _heroes = Directory.GetFiles(GlobalConsts.ImagePath).Select(f => Path.GetFileName(f)).Where(n => !RestrictHeroes.Contains(GetHeroName(n))).ToList();
 
     }
 

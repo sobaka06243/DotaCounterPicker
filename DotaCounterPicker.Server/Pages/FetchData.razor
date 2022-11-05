@@ -29,7 +29,12 @@ else
             @foreach (var hero in _calculatedHeroes)
             {
                     <tr>
-                        <td>@hero.Name</td>
+                        <td>
+                            <div class="d-flex">
+                            <img width="40" height="23"  src="heroes/@GetHeroImageName(hero.Name)" />
+                            <div>@hero.Name</div>
+                        </div>
+                            </td>
                         <td>@hero.Disadvantage</td>
                     </tr>
                 }
@@ -42,6 +47,7 @@ else
     private bool _isBusy = false;
     private IEnumerable<string> _cachedHeroNames = new List<string>();
     private IEnumerable<DotaHero> _calculatedHeroes = new List<DotaHero>();
+
 
     [Parameter]
     public IEnumerable<string> HeroNames { get; set; } = new List<string>();
@@ -102,6 +108,11 @@ else
         }
         heroes.Sort(new DotaHeroComparer());
         _calculatedHeroes = heroes;
+    }
+
+    private string GetHeroImageName(string heroName)
+    {
+        return heroName.ToLower().Replace(" ", "-") + GlobalConsts.HeroImageExtension;
     }
 
     public class DotaHeroComparer : IComparer<DotaHero>
