@@ -55,8 +55,8 @@
         parameters,
         new Blazored.Modal.ModalOptions()
         {
-            Size=Blazored.Modal.ModalSize.Automatic
-
+            Size=Blazored.Modal.ModalSize.Automatic,
+            DisableBackgroundCancel = true
         });
         var res = await modalReference.Result;
         if(res.Data is string heroName)

@@ -1,26 +1,39 @@
 ﻿@using Blazored.Modal
 @using Blazored.Modal.Services
 @using DotaCounterPicker.Server.Utils
-    <div class="container text-center">
+<div class="container text-center">
     <div class="row justify-content-start">
-@for(int i =0 ; i< _heroes.Count; i++)
-{
+        <input @bind-value="SearchWord" />
+    </div>
+    <div class="row justify-content-start">
+        @for (int i = 0; i < _heroes.Count; i++)
+        {
             var buttonNumber = i;
             <button @onclick="async() => await Choose(GetHeroName(_heroes[buttonNumber]))" class="col-auto hero-image">
                 <img class="" src="heroes/@_heroes[i]" />
             </button>
-
-
-}
-        </div>
+        }
     </div>
+</div>
 
 @code {
+    private string _searchWord = string.Empty;
+
     [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; } = default!;
 
 
     [Parameter]
     public IEnumerable<string> RestrictHeroes { get; set; } = new List<string>();
+
+    private string SearchWord
+    {
+        get => _searchWord;
+        set
+        {
+            _searchWord = value;
+            Load();
+        }
+    }
 
     IList<string> _heroes = new List<string>();
 
@@ -29,10 +42,14 @@
         Load();
     }
 
-    public void Load()
+    private void Load()
     {
-        _heroes = Directory.GetFiles(GlobalConsts.ImagePath).Select(f => Path.GetFileName(f)).Where(n => !RestrictHeroes.Contains(GetHeroName(n))).ToList();
-
+        var heroes = Directory.GetFiles(GlobalConsts.ImagePath).Select(f => Path.GetFileName(f)).Where(n => !RestrictHeroes.Contains(GetHeroName(n)));
+        if (!string.IsNullOrEmpty(SearchWord))
+        {
+            heroes = heroes.Where(h => h.Contains(SearchWord));
+        }
+        _heroes = heroes.ToList();
     }
 
     private string GetHeroName(string path)
