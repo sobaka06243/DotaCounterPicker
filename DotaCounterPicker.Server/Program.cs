@@ -1,7 +1,10 @@
 using Blazored.Modal;
 using DotaCounterPicker.Core;
+using DotaCounterPicker.Data.Services;
 using DotaCounterPicker.Server.Services;
 using DotaCounterPicker.Services;
+using Persistence.Configurations;
+using Persistence.Database.DbContextFactory;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +13,11 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped((services) => new HttpClient());
 builder.Services.AddScoped<IHeroLoader, HeroLoader>();
+builder.Services.AddScoped<IHeroesToLinesRepository, HeroesToLinesRepository>();
+builder.Services.AddSingleton<IDbContextFactory, DbContextFactory>();
 builder.Services.AddScoped<HeroParser>();
+builder.Services.Configure<PostgresDatabaseOptions>(
+    builder.Configuration.GetSection(nameof(PostgresDatabaseOptions)));
 builder.Services.AddBlazoredModal();
 
 var app = builder.Build();
