@@ -13,7 +13,7 @@ public class HeroLoader : IHeroLoader
 
     public async Task<string> LoadHero(string heroName)
     {
-        var url = $"https://www.dotabuff.com/heroes/{heroName}/counters";
+        var url = $"https://www.dotabuff.com/heroes/{heroName}/counters?date=week";
         var request = new HttpRequestMessage(HttpMethod.Get, url);
         request.Headers.UserAgent.ParseAdd("Mozilla/5.0 (compatible; AcmeInc/1.0)");
         var res = await _client.SendAsync(request);
