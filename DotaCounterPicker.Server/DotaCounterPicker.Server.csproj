@@ -20,6 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DotaCounterPicker.Core\DotaCounterPicker.Core.csproj" />
     <ProjectReference Include="..\DotaCounterPicker.Data\DotaCounterPicker.Data.csproj" />
+    <ProjectReference Include="..\DotaCounterPicker.Selenium\DotaCounterPicker.Selenium.csproj" />
     <ProjectReference Include="..\DotaCounterPicker.Services\DotaCounterPicker.Services.csproj" />
   </ItemGroup>
 

@@ -1,6 +1,7 @@
 using Blazored.Modal;
 using DotaCounterPicker.Core;
 using DotaCounterPicker.Data.Services;
+using DotaCounterPicker.Selenium;
 using DotaCounterPicker.Server.Services;
 using DotaCounterPicker.Services;
 using Persistence.Configurations;
@@ -13,6 +14,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped((services) => new HttpClient());
 builder.Services.AddScoped<IHeroLoader, HeroLoader>();
+builder.Services.AddScoped<IHTMLLoader, SeleniumParser>();
 builder.Services.AddScoped<IHeroesToLinesRepository, HeroesToLinesRepository>();
 builder.Services.AddSingleton<IDbContextFactory, DbContextFactory>();
 builder.Services.AddScoped<HeroParser>();

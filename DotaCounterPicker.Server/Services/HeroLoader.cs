@@ -1,22 +1,21 @@
-﻿using DotaCounterPicker.Services;
+﻿using DotaCounterPicker.Selenium;
+using DotaCounterPicker.Services;
 
 namespace DotaCounterPicker.Server.Services;
 
 public class HeroLoader : IHeroLoader
 {
-    private readonly HttpClient _client;
+    private readonly IHTMLLoader _htmlLoader;
 
-    public HeroLoader(HttpClient client)
+	public HeroLoader(IHTMLLoader htmlLoader)
     {
-        _client = client;
-    }
+		_htmlLoader = htmlLoader;
+
+	}
 
     public async Task<string> LoadHero(string heroName)
     {
-        var url = $"https://www.dotabuff.com/heroes/{heroName}/counters?date=week";
-        var request = new HttpRequestMessage(HttpMethod.Get, url);
-        request.Headers.UserAgent.ParseAdd("Mozilla/5.0 (compatible; AcmeInc/1.0)");
-        var res = await _client.SendAsync(request);
-        return await res.Content.ReadAsStringAsync();
+        var seleniumParser = new SeleniumParser();
+        return seleniumParser.GetHtml($"https://www.dotabuff.com/heroes/{heroName}/counters?date=week");
     }
 }
